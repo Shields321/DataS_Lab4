@@ -6,13 +6,16 @@ import java.util.concurrent.TimeUnit;
 public class Lab4 {
 
     public static void main(String[] args) {
-        /*
-         * Scanner input = new Scanner(System.in);
-         * System.out.println("Enter a String");
-         * String userInput = input.nextLine();
-         */
+         
+        /*Scanner input = new Scanner(System.in);
+        System.out.println("Enter a String");
+        String userInput = input.nextLine();
+        question1(userInput);*/
 
-        int thing = question4("7 5 + 8 2 - * =");
+        //question3();
+        
+        //(7 * 11) + 2.33 = 79.33
+        double thing = question4("3 4 5 6 7 + - * 3 / + =");//((3+4) * (5+6)) + 7/3 
         System.out.println(thing);
     }
 
@@ -35,7 +38,7 @@ public class Lab4 {
         FileCreate file = new FileCreate();
         int count = 0;
 
-        file.writeToFile("C R Y * S * M T A A * T E  *");
+        file.writeToFile("C R Y * S * M T A A * T E *");
         stack = file.readFile();
 
         while (!(stack.isEmpty())) {
@@ -44,7 +47,6 @@ public class Lab4 {
 
                 stack2.push(stack.pop());
                 count++;
-
             }
 
         }
@@ -100,66 +102,79 @@ public class Lab4 {
             return true;
     }
 
-    public static int question4(String value) {
+    public static double question4(String value) {
         MyStack<String> stack = new MyStack<String>();
         stack.push(value);
         String[] temp = stack.pop().split(" ");
-        int answerAdd=0,answerminus=0,answerMulti=0,answerdiv=0;
-        int finalanswer=0;
+        int answerAdd=0,answerminus=0,answerMulti=0;
+        double answerdiv = 0;
+        double finalanswer=0;
         
-        int value1=0,value2=0,count=0;;
+        int value1=0,value2=0,count=0;
+
         for (int i = 0; i < temp.length; i++) {
             if(temp[i].equals("+")){
-                answerAdd = value1 + value2;
-                
+                answerAdd += value1 + value2;
+                value1=0;
+                value2=0;
             }
             else if(temp[i].equals("-")){
-                answerminus = value1 - value2;
-                
+                answerminus += value1 - value2;
+                value1=0;
+                value2=0;
             }
             else if(temp[i].equals("*")){
-                answerMulti = value1 * value2;
-                
+                answerMulti += value1 * value2;
+                value1=0;
+                value2=0;
             }
             else if(temp[i].equals("/")){
-                answerdiv = value1 / value2;
+                value1=1;
+                value2=1;
+                answerdiv += value1 / value2;
                 
             }
             else if(temp[i].equals("=")){
-
-                if(temp[i].equals("+")){
+                
+                if(temp[i-1].equals("+")){
                     finalanswer = answerAdd+answerMulti+answerdiv+answerminus;
-                    
+                    return finalanswer;
                 }
-                else if(temp[i].equals("-")){
-                    
-                    
+                if(temp[i-1].equals("-")){
+                    finalanswer = answerAdd-answerMulti-answerdiv-answerminus;
+                    return finalanswer;
                 }
-                else if(temp[i].equals("*")){
-                   if(checkIfZero(answerAdd)){
-                        
-                   }
-                    
+                if(temp[i-1].equals("*")){
+                    if(answerMulti == 0){
+                        answerMulti=1;
+                    }
+                    if(answerdiv == 0){
+                        answerdiv =1;
+                    }
+                    finalanswer = answerAdd*answerMulti*answerdiv*answerminus;
+                    return finalanswer;
                 }
-                else if(temp[i].equals("/")){
-                    
-                    
+                if(temp[i-1].equals("/")){
+                    if(answerMulti == 0){
+                        answerMulti = 1;
+                    }
+                    if(answerdiv == 0){
+                        answerdiv = 1;
+                    }
+                    finalanswer = (answerAdd/answerminus)/(answerdiv/answerMulti);
+                    return finalanswer;
                 }
             }
             else{
                 if(count==0){
                     value1 = Integer.valueOf(temp[i]);
-                    count++;
+                    count =1;
                 }else{
                     value2 = Integer.valueOf(temp[i]);
                     count = 0;
                 }
-
-                
-
             }
         }
         return 0;
-        
     }
 }
