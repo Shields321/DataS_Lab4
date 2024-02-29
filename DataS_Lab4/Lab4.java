@@ -225,3 +225,52 @@ public class Lab4 {
 
     }
 }
+
+/*
+public static int question4(String value) {
+        MyStack<String> stack = new MyStack<String>();
+        stack.push(value);
+        int num1 = 0;
+        int num2 = 0;
+        int result = 0;
+
+        String[] temp = value.split(" ");
+
+        for (int i = 0; i < temp.length; i++) {
+
+            if (temp[i].equals("+")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 + num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("-")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 - num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("*")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 * num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("/")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 / num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("=")) {
+
+                return Integer.valueOf(stack.pop());
+
+            } else {
+                stack.push(String.valueOf(temp[i]));
+            }
+        }
+
+        return 0;
+    }
+*/
