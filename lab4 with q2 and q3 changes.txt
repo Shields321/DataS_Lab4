@@ -1,0 +1,230 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package datastruclab4;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+/**
+ *
+ * @author dylan
+ */
+public class DataStrucLab4 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        /*
+         * Scanner input = new Scanner(System.in);
+         * System.out.println("Enter a String");
+         * String userInput = input.nextLine();
+         */
+
+        int thing = question4("3 4 5 6 7 + - * 3 / + =");
+        System.out.println(thing);
+
+        question2();
+        question3();
+    }
+
+    public static void question1(String value) {
+        MyStack<String> stack = new MyStack<String>();
+        String[] temp = value.split(" ");
+
+        for (int i = 0; i < temp.length; i++) {
+            stack.push(temp[i]);
+        }
+        for (int i = 0; i < temp.length; i++) {
+            System.out.print(stack.pop() + " ");
+        }
+    }
+
+    public static void question2() {
+        MyStack<Character> stack = new MyStack<Character>();
+        try (FileReader input = new FileReader("Code.txt");) {
+            int c;
+            while ((c = input.read()) != -1) {
+                stack.push((char) c);
+            }
+            while (!stack.isEmpty()) {
+                char ch = stack.pop();
+                if (ch == '*') {
+                    stack.pop();
+                    System.out.print(stack.pop());
+                }
+            }
+            System.out.println();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    public static void question2() {
+        MyStack<Character> stack = new MyStack<Character>();
+        MyStack<Character> stack2 = new MyStack<Character>();
+        char[] array = new char[10];
+        FileCreate file = new FileCreate();
+        int count = 0;
+
+        file.writeToFile("C R Y * S * M T A A * T E *");
+        stack = file.readFile();
+
+        while (!(stack.isEmpty())) {
+            if (stack.pop() == '*') {
+                stack.pop();
+
+                stack2.push(stack.pop());
+                count++;
+
+            }
+
+        }
+        for (int i = 0; i < count; i++) {
+            array[i] = stack2.pop();
+        }
+
+        String temp = " ";
+        for (int i = 0; i < count; i++) {
+            temp += array[i] + " ";
+        }
+        question1(temp);
+    }
+     */
+
+    public static void question3() {
+        MyStack<Character> stack = new MyStack<Character>();
+        try (FileReader input = new FileReader("Code.txt");) {
+            int c;
+            while ((c = input.read()) != -1) {
+                stack.push((char) c);
+            }
+            int leftCount = 0, rightCount = 0;
+            while (!(stack.isEmpty())) {
+                char temp = stack.pop();
+                if (temp == '(') {
+                    leftCount++;
+                } else if (temp == ')') {
+                    rightCount++;
+                } else if (temp == '[') {
+                    leftCount++;
+                } else if (temp == ']') {
+                    rightCount++;
+                } else if (temp == '{') {
+                    leftCount++;
+                } else if (temp == '}') {
+                    rightCount++;
+                }
+            }
+            if (leftCount > rightCount) {
+                System.out.println("Right parenthesis missing");
+                System.out.println("Extra left parenthesis");
+            } else if (rightCount > leftCount) {
+                System.out.println("Left parenthesis missing");
+                System.out.println("Extra Right parenthesis");
+            } else {
+                System.out.println("Left and right parentheses are balance");
+            }
+            System.out.println();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*
+    public static void question3() {
+        FileCreate file = new FileCreate();
+        file.writeToFile("[()}");
+
+        MyStack<Character> stack = new MyStack<Character>();
+        stack = file.readFile();
+
+        int leftCount = 0, rightCount = 0;
+        while (!(stack.isEmpty())) {
+            char temp = stack.pop();
+            if (temp == '(') {
+                leftCount++;
+            } else if (temp == ')') {
+                rightCount++;
+            } else if (temp == '[') {
+                leftCount++;
+            } else if (temp == ']') {
+                rightCount++;
+            } else if (temp == '{') {
+                leftCount++;
+            } else if (temp == '}') {
+                rightCount++;
+            }
+        }
+        if (leftCount > rightCount) {
+            System.out.println("Right parenthesis missing");
+            System.out.println("Extra left parenthesis");
+        } else if (rightCount > leftCount) {
+            System.out.println("Left parenthesis missing");
+            System.out.println("Extra Right parenthesis");
+        } else {
+            System.out.println("Left and right parentheses are balance");
+        }
+    }
+     */
+
+    public static boolean checkIfZero(int value) {
+        if (value == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static int question4(String value) {
+        MyStack<String> stack = new MyStack<String>();
+        int num1 = 0;
+        int num2 = 0;
+        int result = 0;
+
+        String[] temp = value.split(" ");
+
+        for (int i = 0; i < temp.length; i++) {
+
+            if (temp[i].equals("+")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 + num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("-")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 - num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("*")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 * num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("/")) {
+                num2 = Integer.valueOf(stack.pop());
+                num1 = Integer.valueOf(stack.pop());
+                result = num1 / num2;
+                stack.push(String.valueOf(result));
+
+            } else if (temp[i].equals("=")) {
+
+                return Integer.valueOf(stack.pop());
+
+            } else {
+                stack.push(String.valueOf(temp[i]));
+            }
+        }
+
+        return 0;
+    }
+}
