@@ -26,28 +26,28 @@ public class Lab4 {
         question5();
     }
 
-    public static void question1(String value) {
+    public static void question1(String value) { // This function reverses a sentence.
         MyStack<String> stack = new MyStack<String>();
-        String[] temp = value.split(" ");
+        String[] temp = value.split(" "); // Splits the string on the space to push each element into the stack.
 
-        for (int i = 0; i < temp.length; i++) {
+        for (int i = 0; i < temp.length; i++) { // Pushing the elements into the stack.
             stack.push(temp[i]);
         }
-        for (int i = 0; i < temp.length; i++) {
+        for (int i = 0; i < temp.length; i++) { // Popping the elements from the stack.
             System.out.print(stack.pop() + " ");
         }
     }
 
-    public static void question2() {
+    public static void question2() { // This method prints the chracters that have an asterisk next to the element.
         String dir = System.getProperty("user.dir");
         MyStack<Character> stack = new MyStack<Character>();
-        try (FileReader input = new FileReader(dir + "\\DataS_Lab4\\Code.txt");) {
+        try (FileReader input = new FileReader("Code.txt");) { // dir + \\DataS_Lab4\\Code2.txt) for vscode
 
             int c;
-            while ((c = input.read()) != -1) {
+            while ((c = input.read()) != -1) { // Pushing the chracters from the file into the stack.
                 stack.push((char) c);
             }
-            while (!stack.isEmpty()) {
+            while (!stack.isEmpty()) { // poping the letter with the asterisk out.
                 char ch = stack.pop();
                 if (ch == '*') {
                     stack.pop();
@@ -64,15 +64,15 @@ public class Lab4 {
     public static void question3() {
         String dir = System.getProperty("user.dir");
         MyStack<Character> stack = new MyStack<Character>();
-        try (FileReader input = new FileReader(dir + "\\DataS_Lab4\\Code2.txt");) {
+        try (FileReader input = new FileReader("Code2.txt");) { // dir + \\DataS_Lab4\\Code2.txt) for vscode
             int c;
-            while ((c = input.read()) != -1) {
+            while ((c = input.read()) != -1) { // Pushing the brackets from the file into the stack.
                 stack.push((char) c);
             }
             int leftCount = 0, rightCount = 0;
             int roundCountright = 0, roundCountleft = 0, curlcountRight = 0, curlcountLeft = 0, squareCountRight = 0,
                     squareCountLeft = 0;
-            while (!(stack.isEmpty())) {
+            while (!(stack.isEmpty())) { // This while loop is used to find how many brackets are on each side.
                 char temp = stack.pop();
                 if (temp == '(') {
                     leftCount++;
@@ -123,35 +123,35 @@ public class Lab4 {
         int num2 = 0;
         int result = 0;
 
-        String[] temp = value.split(" ");
+        String[] temp = value.split(" "); // Splitting the string at the spaces
 
         for (int i = 0; i < temp.length; i++) {
 
-            if (temp[i].equals("+")) {
+            if (temp[i].equals("+")) { // Does the addition calculation and push result back in stack.
                 num2 = Integer.valueOf(stack.pop());
                 num1 = Integer.valueOf(stack.pop());
                 result = num1 + num2;
                 stack.push(String.valueOf(result));
 
-            } else if (temp[i].equals("-")) {
+            } else if (temp[i].equals("-")) {  // Does the subtraction calculation and push back result in stack.
                 num2 = Integer.valueOf(stack.pop());
                 num1 = Integer.valueOf(stack.pop());
                 result = num1 - num2;
                 stack.push(String.valueOf(result));
 
-            } else if (temp[i].equals("*")) {
+            } else if (temp[i].equals("*")) {  // Does the multiplication calculation and push back result in stack.
                 num2 = Integer.valueOf(stack.pop());
                 num1 = Integer.valueOf(stack.pop());
                 result = num1 * num2;
                 stack.push(String.valueOf(result));
 
-            } else if (temp[i].equals("/")) {
+            } else if (temp[i].equals("/")) {  // Does the division calculation and push back result in stack.
                 num2 = Integer.valueOf(stack.pop());
                 num1 = Integer.valueOf(stack.pop());
                 result = num1 / num2;
                 stack.push(String.valueOf(result));
 
-            } else if (temp[i].equals("=")) {
+            } else if (temp[i].equals("=")) { // Outputs the final result when the = is popped out. 
 
                 return Integer.valueOf(stack.pop());
 
@@ -165,10 +165,10 @@ public class Lab4 {
     public static void question5() {
         String dir = System.getProperty("user.dir");
         MyStack<String> stack = new MyStack<String>();
-        try (BufferedReader br = new BufferedReader(new FileReader(dir + "\\DataS_Lab4\\Today.txt"))) {
-
+        try (BufferedReader br = new BufferedReader(new FileReader(dir + "\\Today.txt"))) {// dir + \\DataS_Lab4\\Code2.txt) for vscode
+            
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) { //Pushing the strings in the file into a stack.
                 String[] words = line.split(" ");
                 for (String word : words) {
                     stack.push(word);
@@ -181,9 +181,9 @@ public class Lab4 {
             String[] temp4 = new String[2];
 
             int i = 0;
-            
+
             Person[] people = new Person[10000];
-            while (!(stack.isEmpty())) {
+            while (!(stack.isEmpty())) { //This while loop is used to create each person object. 
 
                 String currentChar = stack.pop();
                 temp = currentChar.split(":");
@@ -196,8 +196,8 @@ public class Lab4 {
                 people[i] = new Person(temp4[1], temp[1], Integer.parseInt(temp3[1]), Integer.parseInt(temp2[1]));
                 i++;
             }
-            Bank bank = new Bank();
-            for (int j = 0; j < people.length; j++) {
+            Bank bank = new Bank(); 
+            for (int j = 0; j < people.length; j++) { //Adding each person to the queue in the bank. 
                 if (people[j] != null) {
                     bank.addQ(people[j]);
                 }
