@@ -17,12 +17,12 @@ public class Bank {
         }
     }
     public void printElderQ(){
-        System.out.println(ElderQ.size());
+        System.out.println("Elder Queue = "+ElderQ.size());
     }
     public void printAccountQ(){
-        System.out.println(AccountQ.size());
+        System.out.println("Account Queue = "+AccountQ.size());
     }
     public void printotherQ(){
-        System.out.println(otherQueue.size());
+        System.out.println("other Queue = "+otherQueue.size());
     }
 }
