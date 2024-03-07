@@ -11,7 +11,7 @@ public class MyQueue<T> {
 
     // Add an element to the end of the queue
     public Object enqueue(T element) {
-        return elements.addFirst(element);
+        return elements.addLast(element);
     }
 
     // Remove and return the element at the front of the queue
